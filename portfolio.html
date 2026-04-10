@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — [Your Name]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #090907;
+    --bg2: #111110;
+    --bg3: #1a1a17;
+    --gold: #c8a84b;
+    --gold-dim: #8a7030;
+    --gold-bright: #e2c46a;
+    --text: #f0ebe0;
+    --text-muted: #8a8580;
+    --text-dim: #555250;
+    --border: rgba(200,168,75,0.18);
+    --border-subtle: rgba(240,235,224,0.07);
+    --serif: 'Cormorant Garamond', Georgia, serif;
+    --sans: 'Syne', sans-serif;
+    --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.4rem 3rem;
+    transition: background 0.5s, backdrop-filter 0.5s;
+  }
+  nav.scrolled {
+    background: rgba(9,9,7,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid var(--border-subtle);
+  }
+  .nav-logo {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: color var(--transition);
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 70% 40%, rgba(200,168,75,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 70%, rgba(200,168,75,0.04) 0%, transparent 50%);
+  }
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 200px;
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-name {
+    font-family: var(--serif);
+    font-size: clamp(4rem, 9vw, 9rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp 0.9s 0.4s forwards;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--gold-dim);
+  }
+  .hero-tagline {
+    font-size: clamp(1rem, 1.4vw, 1.2rem);
+    color: var(--text-muted);
+    font-weight: 400;
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.9s 0.6s forwards;
+  }
+  .hero-ctas {
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(16px);
+    animation: fadeUp 0.9s 0.8s forwards;
+  }
+  .btn-primary {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    background: var(--gold);
+    color: #0a0a08;
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background var(--transition), transform var(--transition);
+  }
+  .btn-primary:hover { background: var(--gold-bright); transform: translateY(-1px); }
+  .btn-ghost {
+    display: inline-block;
+    padding: 0.85rem 2.2rem;
+    border: 0.5px solid var(--border);
+    color: var(--text-muted);
+    font-family: var(--sans);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: border-color var(--transition), color var(--transition);
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-scroll-line {
+    position: absolute;
+    bottom: 2rem;
+    right: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    writing-mode: vertical-rl;
+    opacity: 0;
+    animation: fadeIn 1s 1.2s forwards;
+  }
+  .hero-scroll-line::before {
+    content: '';
+    display: block;
+    width: 0.5px;
+    height: 48px;
+    background: var(--gold-dim);
+    animation: growLine 1s 1.4s forwards;
+    transform-origin: top;
+    transform: scaleY(0);
+  }
+  @keyframes growLine { to { transform: scaleY(1); } }
+
+  /* ─── SECTION SHARED ─── */
+  section { padding: 7rem 3rem; }
+  .section-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 40px;
+    height: 0.5px;
+    background: var(--gold-dim);
+  }
+  .section-heading {
+    font-family: var(--serif);
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 3.5rem;
+  }
+  .section-heading em { font-style: italic; color: var(--gold-dim); }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    width: 100%;
+    height: 0.5px;
+    background: var(--border-subtle);
+    margin: 0 3rem;
+    width: calc(100% - 6rem);
+  }
+
+  /* ─── TIKTOK VIDEOS ─── */
+  .videos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .video-card {
+    position: relative;
+    background: var(--bg2);
+    border: 0.5px solid var(--border-subtle);
+    overflow: hidden;
+    transition: border-color var(--transition), transform var(--transition);
+    cursor: pointer;
+  }
+  .video-card:hover { border-color: var(--border); transform: translateY(-4px); }
+  .video-placeholder {
+    aspect-ratio: 9/16;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg3);
+    position: relative;
+    overflow: hidden;
+  }
+  /* Replace .video-placeholder with a real <video> or <iframe> when ready */
+  .video-placeholder video,
+  .video-placeholder iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: none;
+  }
+  .video-play-icon {
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+    position: relative;
+    z-index: 1;
+  }
+  .video-play-icon svg { margin-left: 4px; }
+  .video-placeholder-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    position: relative;
+    z-index: 1;
+  }
+  .video-meta {
+    padding: 1.1rem 1.2rem;
+    border-top: 0.5px solid var(--border-subtle);
+  }
+  .video-title {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.3rem;
+  }
+  .video-sub {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── COLOR GRADE ─── */
+  #color-grade { background: var(--bg2); }
+  .grade-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  .grade-card {
+    background: var(--bg);
+    border: 0.5px solid var(--border-subtle);
+    overflow: hidden;
+    transition: border-color var(--transition);
+  }
+  .grade-card:hover { border-color: var(--border); }
+  .grade-images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    aspect-ratio: 16/9;
+    background: var(--bg3);
+  }
+  .grade-half {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg3);
+  }
+  /* Replace .grade-half with <img src="your-image.jpg"> when ready */
+  .grade-half img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .grade-half-label {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    background: rgba(9,9,7,0.75);
+    color: var(--text-muted);
+  }
+  .grade-half-label.after { color: var(--gold); }
+  .grade-placeholder-icon {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+  .grade-meta { padding: 1rem 1.2rem; border-top: 0.5px solid var(--border-subtle); }
+  .grade-title { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.25rem; }
+  .grade-sub { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 0.06em; }
+
+  /* ─── PRINT ADS ─── */
+  .ads-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .ad-card {
+    background: var(--bg2);
+    border: 0.5px solid var(--border-subtle);
+    overflow: hidden;
+    transition: border-color var(--transition), transform var(--transition);
+  }
+  .ad-card:hover { border-color: var(--border); transform: translateY(-3px); }
+  .ad-image {
+    aspect-ratio: 8.5/11;
+    background: var(--bg3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  /* Replace .ad-image contents with <img src="your-ad.jpg"> */
+  .ad-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .ad-placeholder-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 1rem;
+  }
+  .ad-meta { padding: 1rem 1.2rem; border-top: 0.5px solid var(--border-subtle); }
+  .ad-client { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.2rem; }
+  .ad-desc { font-size: 0.82rem; color: var(--text-muted); }
+
+  /* ─── BRAND / LOGOS ─── */
+  #brand { background: var(--bg2); }
+  .brand-intro {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+  }
+  .brand-intro .section-heading { margin-bottom: 0; }
+  .brand-client-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 0.5px solid var(--border);
+    padding: 0.5rem 1.1rem;
+    white-space: nowrap;
+    align-self: flex-end;
+  }
+  .logos-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border-subtle);
+    border: 0.5px solid var(--border-subtle);
+  }
+  .logo-cell {
+    background: var(--bg);
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: background var(--transition);
+    cursor: pointer;
+  }
+  .logo-cell:hover { background: var(--bg3); }
+  /* Replace .logo-cell contents with <img src="your-logo.png"> */
+  .logo-cell img { max-width: 70%; max-height: 70%; object-fit: contain; }
+  .logo-cell-placeholder {
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    text-align: center;
+    padding: 1rem;
+  }
+  .logo-cell-hover {
+    position: absolute;
+    inset: 0;
+    background: rgba(200,168,75,0.06);
+    opacity: 0;
+    transition: opacity var(--transition);
+    display: flex;
+    align-items: flex-end;
+    padding: 0.8rem;
+  }
+  .logo-cell:hover .logo-cell-hover { opacity: 1; }
+  .logo-cell-label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ─── ABOUT ─── */
+  .about-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-image-wrap {
+    position: relative;
+  }
+  .about-image {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: var(--bg3);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Replace with <img src="your-headshot.jpg"> */
+  .about-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .about-image-placeholder { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-dim); }
+  .about-image-accent {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1.5rem;
+    width: 80%;
+    height: 80%;
+    border: 0.5px solid var(--border);
+    z-index: -1;
+  }
+  .about-content { padding-top: 1rem; }
+  .about-content h3 {
+    font-family: var(--serif);
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  .about-content h3 em { font-style: italic; color: var(--gold-dim); }
+  .about-content p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    margin-bottom: 1.2rem;
+  }
+  .skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 2rem;
+    list-style: none;
+  }
+  .skills-list li {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.45rem 0.9rem;
+    border: 0.5px solid var(--border);
+    color: var(--text-muted);
+    transition: border-color var(--transition), color var(--transition);
+  }
+  .skills-list li:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── CONTACT ─── */
+  #contact { background: var(--bg2); text-align: center; }
+  #contact .section-label { justify-content: center; }
+  #contact .section-label::after { display: none; }
+  .contact-email {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 5vw, 5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--text);
+    text-decoration: none;
+    display: inline-block;
+    margin: 1.5rem 0 2rem;
+    transition: color var(--transition);
+    border-bottom: 0.5px solid var(--border);
+    padding-bottom: 0.3rem;
+  }
+  .contact-email:hover { color: var(--gold); border-color: var(--gold); }
+  .contact-social {
+    display: flex;
+    gap: 2.5rem;
+    justify-content: center;
+    margin-top: 2.5rem;
+  }
+  .contact-social a {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+  .contact-social a:hover { color: var(--gold); }
+  .contact-desc { color: var(--text-muted); font-size: 0.95rem; max-width: 400px; margin: 0 auto; line-height: 1.7; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 2rem 3rem;
+    border-top: 0.5px solid var(--border-subtle);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+  }
+
+  /* ─── ANIMATIONS ─── */
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── MOBILE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { gap: 1.5rem; }
+    section { padding: 5rem 1.5rem; }
+    .hero { padding: 0 1.5rem 4rem; }
+    .hero-scroll-line { display: none; }
+    .videos-grid { grid-template-columns: 1fr 1fr; }
+    .grade-grid { grid-template-columns: 1fr; }
+    .ads-grid { grid-template-columns: 1fr 1fr; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .about-image-accent { display: none; }
+    .logos-grid { grid-template-columns: repeat(3, 1fr); }
+    footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    nav { padding: 1rem; }
+    .nav-links { display: none; }
+    .videos-grid { grid-template-columns: 1fr; }
+    .ads-grid { grid-template-columns: 1fr; }
+    .logos-grid { grid-template-columns: repeat(2, 1fr); }
+    .brand-intro { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════ NAV ══════════════════════ -->
+<nav id="nav">
+  <a href="#" class="nav-logo">[Your Name]</a>
+  <ul class="nav-links">
+    <li><a href="#videos">Work</a></li>
+    <li><a href="#color-grade">Color</a></li>
+    <li><a href="#print">Print</a></li>
+    <li><a href="#brand">Brand</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="hero" id="top">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-eyebrow">Video Editor · Designer · Colorist</div>
+  <h1 class="hero-name">[Your<br><em>Name Here]</em></h1>
+  <p class="hero-tagline">Crafting motion and brand identity — from TikTok edits and DaVinci color grades to print campaigns and logo systems.</p>
+  <div class="hero-ctas">
+    <a href="#videos" class="btn-primary">View Work</a>
+    <a href="#contact" class="btn-ghost">Get in Touch</a>
+  </div>
+  <div class="hero-scroll-line">Scroll</div>
+</section>
+
+<!-- ══════════════════════ VIDEOS ══════════════════════ -->
+<section id="videos">
+  <div class="section-label">01 — Motion</div>
+  <h2 class="section-heading">TikTok <em>Edits</em></h2>
+
+  <div class="videos-grid">
+
+    <!-- VIDEO 1 — Replace the .video-placeholder div with: <video src="your-video.mp4" controls poster="your-thumbnail.jpg"></video> -->
+    <div class="video-card reveal">
+      <div class="video-placeholder">
+        <!-- SWAP IN: <video src="video1.mp4" controls poster="thumb1.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video> -->
+        <div class="video-play-icon">
+          <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1.5L15 9L1 16.5V1.5Z" stroke="#c8a84b" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <span class="video-placeholder-label">Drop video 1 here</span>
+      </div>
+      <div class="video-meta">
+        <div class="video-title">Project Title</div>
+        <div class="video-sub">TikTok · Edit · Sound Design</div>
+      </div>
+    </div>
+
+    <!-- VIDEO 2 -->
+    <div class="video-card reveal reveal-delay-1">
+      <div class="video-placeholder">
+        <div class="video-play-icon">
+          <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1.5L15 9L1 16.5V1.5Z" stroke="#c8a84b" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <span class="video-placeholder-label">Drop video 2 here</span>
+      </div>
+      <div class="video-meta">
+        <div class="video-title">Project Title</div>
+        <div class="video-sub">TikTok · Motion Graphics</div>
+      </div>
+    </div>
+
+    <!-- VIDEO 3 -->
+    <div class="video-card reveal reveal-delay-2">
+      <div class="video-placeholder">
+        <div class="video-play-icon">
+          <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1.5L15 9L1 16.5V1.5Z" stroke="#c8a84b" stroke-width="1.2" fill="none"/>
+          </svg>
+        </div>
+        <span class="video-placeholder-label">Drop video 3 here</span>
+      </div>
+      <div class="video-meta">
+        <div class="video-title">Project Title</div>
+        <div class="video-sub">TikTok · Editing · Color</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════ COLOR GRADE ══════════════════════ -->
+<section id="color-grade">
+  <div class="section-label">02 — Colorist</div>
+  <h2 class="section-heading">Color <em>Grades</em></h2>
+
+  <div class="grade-grid">
+
+    <!-- GRADE 1 — Replace the .grade-half divs with your before/after images -->
+    <div class="grade-card reveal">
+      <div class="grade-images">
+        <div class="grade-half">
+          <!-- SWAP IN: <img src="grade1-before.jpg" alt="Before grade 1"> -->
+          <span class="grade-placeholder-icon">Before</span>
+          <div class="grade-half-label">Before</div>
+        </div>
+        <div class="grade-half">
+          <!-- SWAP IN: <img src="grade1-after.jpg" alt="After grade 1"> -->
+          <span class="grade-placeholder-icon">After</span>
+          <div class="grade-half-label after">After</div>
+        </div>
+      </div>
+      <div class="grade-meta">
+        <div class="grade-title">Scene / Look Title</div>
+        <div class="grade-sub">DaVinci Resolve · Sample Footage</div>
+      </div>
+    </div>
+
+    <!-- GRADE 2 -->
+    <div class="grade-card reveal reveal-delay-1">
+      <div class="grade-images">
+        <div class="grade-half">
+          <span class="grade-placeholder-icon">Before</span>
+          <div class="grade-half-label">Before</div>
+        </div>
+        <div class="grade-half">
+          <span class="grade-placeholder-icon">After</span>
+          <div class="grade-half-label after">After</div>
+        </div>
+      </div>
+      <div class="grade-meta">
+        <div class="grade-title">Scene / Look Title</div>
+        <div class="grade-sub">DaVinci Resolve · Sample Footage</div>
+      </div>
+    </div>
+
+    <!-- GRADE 3 -->
+    <div class="grade-card reveal reveal-delay-2">
+      <div class="grade-images">
+        <div class="grade-half">
+          <span class="grade-placeholder-icon">Before</span>
+          <div class="grade-half-label">Before</div>
+        </div>
+        <div class="grade-half">
+          <span class="grade-placeholder-icon">After</span>
+          <div class="grade-half-label after">After</div>
+        </div>
+      </div>
+      <div class="grade-meta">
+        <div class="grade-title">Scene / Look Title</div>
+        <div class="grade-sub">DaVinci Resolve · Sample Footage</div>
+      </div>
+    </div>
+
+    <!-- GRADE 4 -->
+    <div class="grade-card reveal reveal-delay-3">
+      <div class="grade-images">
+        <div class="grade-half">
+          <span class="grade-placeholder-icon">Before</span>
+          <div class="grade-half-label">Before</div>
+        </div>
+        <div class="grade-half">
+          <span class="grade-placeholder-icon">After</span>
+          <div class="grade-half-label after">After</div>
+        </div>
+      </div>
+      <div class="grade-meta">
+        <div class="grade-title">Scene / Look Title</div>
+        <div class="grade-sub">DaVinci Resolve · Sample Footage</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════ PRINT ADS ══════════════════════ -->
+<section id="print">
+  <div class="section-label">03 — Print</div>
+  <h2 class="section-heading">Magazine <em>Ads</em></h2>
+
+  <div class="ads-grid">
+
+    <!-- AD 1 — Replace .ad-image contents with <img src="rungum-ad.jpg"> -->
+    <div class="ad-card reveal">
+      <div class="ad-image">
+        <!-- SWAP IN: <img src="rungum-ad.jpg" alt="Run Gum magazine ad"> -->
+        <div class="ad-placeholder-text">Run Gum<br>magazine ad</div>
+      </div>
+      <div class="ad-meta">
+        <div class="ad-client">Run Gum</div>
+        <div class="ad-desc">Print Campaign · Magazine Ad</div>
+      </div>
+    </div>
+
+    <!-- AD 2 -->
+    <div class="ad-card reveal reveal-delay-1">
+      <div class="ad-image">
+        <!-- SWAP IN: <img src="oregontelemed-ad.jpg" alt="Oregon Telemed ad"> -->
+        <div class="ad-placeholder-text">Oregon Telemed<br>magazine ad</div>
+      </div>
+      <div class="ad-meta">
+        <div class="ad-client">Oregon Telemed</div>
+        <div class="ad-desc">Print Campaign · Magazine Ad</div>
+      </div>
+    </div>
+
+    <!-- AD 3 -->
+    <div class="ad-card reveal reveal-delay-2">
+      <div class="ad-image">
+        <!-- SWAP IN: <img src="sisterscoffee-ad.jpg" alt="Sisters Coffee Co. ad"> -->
+        <div class="ad-placeholder-text">Sisters Coffee Co.<br>magazine ad</div>
+      </div>
+      <div class="ad-meta">
+        <div class="ad-client">Sisters Coffee Co.</div>
+        <div class="ad-desc">Print Campaign · Magazine Ad</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════ BRAND / LOGOS ══════════════════════ -->
+<section id="brand">
+  <div class="brand-intro reveal">
+    <div>
+      <div class="section-label">04 — Brand Identity</div>
+      <h2 class="section-heading">Eugene Running<br><em>Company</em></h2>
+    </div>
+    <div class="brand-client-tag">Full Brand System · 9 Assets</div>
+  </div>
+
+  <div class="logos-grid">
+
+    <!-- LOGO CELL 1 — Replace each .logo-cell-placeholder with <img src="erc-logo1.png" alt="..."> -->
+    <div class="logo-cell reveal">
+      <!-- SWAP IN: <img src="erc-primary-logo.png" alt="ERC Primary Logo"> -->
+      <div class="logo-cell-placeholder">ERC<br>Primary Logo</div>
+      <div class="logo-cell-hover"><span class="logo-cell-label">Primary Logo</span></div>
+    </div>
+
+    <div class="logo-cell reveal reveal-delay-1">
+      <div class="logo-cell-placeholder">ERC<br>Stacked Logo</div>
+      <div class="logo-cell-hover"><span class="logo-cell-label">Stacked Version</span></div>
+    </div>
+
+    <div class="logo-cell reveal reveal-delay-2">
+      <div class="logo-cell-placeholder">ERC<br>Horizontal</div>
+      <div class="logo-cell-hover"><span class="logo-cell-label">Horizontal Layout</span></div>
+    </div>
+
+    <div class="logo-cell reveal reveal-delay-1">
+      <div class="logo-cell-placeholder">ERC<br>Icon / Mark</div>
+      <div class="logo-cell-hover"><span class="logo-cell-label">Brand Mark</span></div>
+    </div>
+
+    <div class="logo-cell reveal reveal-delay-2">
+      <div class="logo-cell-placeholder">ERC<br>Dark Version</div>
+      <div class="logo-cell-hover"><span class="logo-cell-label">Dark Variant</span></div>
+    </div>
+
+    <div class="logo-cell reveal reveal-delay-3">
+      <div class="logo-cell-placeholder">ERC<br>Light Version</div>
+      <div class="logo-cell-hover"><span class="logo-cell-label">Light Variant</span></div>
+    </div>
+
+    <div class="logo-cell reveal">
+      <div class="logo-cell-placeholder">ERC<br>Badge / Patch</div>
+      <div class="logo-cell-hover"><span class="logo-cell-label">Badge Format</span></div>
+    </div>
+
+    <div class="logo-cell reveal reveal-delay-1">
+      <div class="logo-cell-placeholder">ERC<br>Social Avatar</div>
+      <div class="logo-cell-hover"><span class="logo-cell-label">Social Format</span></div>
+    </div>
+
+    <div class="logo-cell reveal reveal-delay-2">
+      <div class="logo-cell-placeholder">ERC<br>Merch / Apparel</div>
+      <div class="logo-cell-hover"><span class="logo-cell-label">Apparel Use</span></div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════ ABOUT ══════════════════════ -->
+<section id="about">
+  <div class="section-label">05 — About</div>
+
+  <div class="about-inner">
+    <div class="about-image-wrap reveal">
+      <div class="about-image">
+        <!-- SWAP IN: <img src="headshot.jpg" alt="[Your Name]"> -->
+        <span class="about-image-placeholder">Your Photo</span>
+      </div>
+      <div class="about-image-accent"></div>
+    </div>
+
+    <div class="about-content reveal reveal-delay-2">
+      <h3>Creative<br>by <em>every medium</em></h3>
+      <!-- ✏️ Replace this with your actual bio -->
+      <p>I'm a video editor and visual designer based in [City], with a degree in Advertising and a deep background in the Adobe Creative Cloud suite. My work spans fast-paced social content, cinematic color grading in DaVinci Resolve, print advertising, and brand identity systems.</p>
+      <p>Whether I'm cutting a TikTok that stops thumbs mid-scroll or building out a full logo system for a local brand, I bring the same obsession with craft and clarity to every project.</p>
+      <p>I'm currently open to full-time, freelance, and contract roles in video editing, post-production, and creative design.</p>
+      <ul class="skills-list">
+        <li>Premiere Pro</li>
+        <li>After Effects</li>
+        <li>DaVinci Resolve</li>
+        <li>Photoshop</li>
+        <li>Illustrator</li>
+        <li>InDesign</li>
+        <li>Color Grading</li>
+        <li>Motion Graphics</li>
+        <li>Brand Identity</li>
+        <li>Print Design</li>
+        <li>TikTok Editing</li>
+        <li>Advertising</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════ CONTACT ══════════════════════ -->
+<section id="contact">
+  <div class="section-label">06 — Contact</div>
+  <h2 class="section-heading" style="max-width:600px;margin:0 auto 1rem;">Let's make<br><em>something great</em></h2>
+  <p class="contact-desc reveal">Open to new opportunities — full-time, freelance, or short-term projects. Say hello.</p>
+
+  <!-- ✏️ Replace with your actual email -->
+  <a href="mailto:your@email.com" class="contact-email reveal">your@email.com</a>
+
+  <div class="contact-social reveal">
+    <!-- ✏️ Replace href with your actual social links -->
+    <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+    <a href="https://instagram.com/yourhandle" target="_blank">Instagram</a>
+    <a href="https://vimeo.com/yourprofile" target="_blank">Vimeo</a>
+  </div>
+</section>
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer>
+  <span>© 2025 [Your Name]</span>
+  <span>Video Editor · Designer · Colorist</span>
+</footer>
+
+<!-- ══════════════════════ SCRIPTS ══════════════════════ -->
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('visible');
+        observer.unobserve(el.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
