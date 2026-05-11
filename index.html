@@ -93,9 +93,7 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 70% 60% at 72% 38%, rgba(200,168,75,0.22) 0%, transparent 60%),
-      radial-gradient(ellipse 50% 55% at 18% 72%, rgba(200,168,75,0.12) 0%, transparent 55%),
-      radial-gradient(ellipse 30% 30% at 50% 50%, rgba(200,168,75,0.06) 0%, transparent 70%);
+      radial-gradient(ellipse 65% 55% at 72% 38%, rgba(200,168,75,0.26) 0%, transparent 65%);
   }
   .hero-grain {
     position: absolute;
@@ -664,7 +662,7 @@
     <!-- VIDEO 1 — Replace the .video-placeholder div with: <video src="your-video.mp4" controls poster="your-thumbnail.jpg"></video> -->
     <div class="video-card reveal">
       <div class="video-placeholder">
-        <video src="FranktokFinalExport2.mp4" preload="metadata" muted loop playsinline controls style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        <iframe class="yt-player" src="https://www.youtube.com/embed/6TjywMf3RA8?enablejsapi=1&mute=1&rel=0&playsinline=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <div class="video-meta">
         <div class="video-title">Franktok</div>
@@ -686,7 +684,7 @@
     <!-- VIDEO 3 -->
     <div class="video-card reveal reveal-delay-2">
       <div class="video-placeholder landscape">
-        <video src="ChocolatePortfolioEndCut1.mov" preload="metadata" muted loop playsinline controls style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;"></video>
+        <iframe class="yt-player" src="https://www.youtube.com/embed/Nu3SDF2kq-Y?enablejsapi=1&mute=1&rel=0&playsinline=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <div class="video-meta">
         <div class="video-title">Chocolate Co.</div>
@@ -720,7 +718,7 @@
     <!-- GRADE 1 — SWAP IN: <video src="grade1.mp4" controls> or <img src="grade1.jpg"> inside .grade-media -->
     <div class="grade-card reveal">
       <div class="grade-media">
-        <video src="SubwayGradeRevealLoop1.mp4" preload="metadata" muted loop playsinline controls style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        <iframe class="yt-player" src="https://www.youtube.com/embed/vqyjJ_AamM4?enablejsapi=1&mute=1&rel=0&playsinline=1" style="width:100%;height:100%;border:none;position:absolute;inset:0;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <div class="grade-meta">
         <div class="grade-title">Subway</div>
@@ -731,10 +729,10 @@
     <!-- GRADE 2 -->
     <div class="grade-card reveal reveal-delay-1">
       <div class="grade-media">
-        <video src="UmbrellaGradeRevealLoop2.mp4" preload="metadata" muted loop playsinline controls style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        <iframe class="yt-player" src="https://www.youtube.com/embed/TclDtZlTRa4?enablejsapi=1&mute=1&rel=0&playsinline=1" style="width:100%;height:100%;border:none;position:absolute;inset:0;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <div class="grade-meta">
-        <div class="grade-title">Umbrella II</div>
+        <div class="grade-title">Umbrella</div>
         <div class="grade-sub">DaVinci Resolve · Color Grade</div>
       </div>
     </div>
@@ -742,10 +740,10 @@
     <!-- GRADE 3 -->
     <div class="grade-card reveal reveal-delay-2">
       <div class="grade-media">
-        <video src="UmbrellaGradeRevealLoop1.mp4" preload="metadata" muted loop playsinline controls style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        <iframe class="yt-player" src="https://www.youtube.com/embed/JOT_XU_BMXU?enablejsapi=1&mute=1&rel=0&playsinline=1" style="width:100%;height:100%;border:none;position:absolute;inset:0;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <div class="grade-meta">
-        <div class="grade-title">Umbrella I</div>
+        <div class="grade-title">Bokeh</div>
         <div class="grade-sub">DaVinci Resolve · Color Grade</div>
       </div>
     </div>
@@ -753,7 +751,7 @@
     <!-- GRADE 4 -->
     <div class="grade-card reveal reveal-delay-3">
       <div class="grade-media">
-        <video src="BeachGradeRevealLoop1.mp4" preload="metadata" muted loop playsinline controls style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+        <iframe class="yt-player" src="https://www.youtube.com/embed/OxSn8MrOvLI?enablejsapi=1&mute=1&rel=0&playsinline=1" style="width:100%;height:100%;border:none;position:absolute;inset:0;" allow="autoplay; encrypted-media" allowfullscreen></iframe>
       </div>
       <div class="grade-meta">
         <div class="grade-title">Beach</div>
@@ -950,30 +948,36 @@
   }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-  // Video autoplay on scroll
+  // Native video autoplay on scroll
   const videoObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       const video = entry.target;
-      if (entry.isIntersecting) {
-        video.play().catch(() => {});
-      } else {
-        video.pause();
-      }
+      if (entry.isIntersecting) { video.play().catch(() => {}); }
+      else { video.pause(); }
     });
   }, { threshold: 0.5 });
 
-  function initVideoObservers() {
-    document.querySelectorAll('video').forEach(video => {
-      video.muted = true;
-      video.loop = true;
-      video.playsInline = true;
-      videoObserver.observe(video);
-    });
+  document.querySelectorAll('video').forEach(video => {
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    videoObserver.observe(video);
+  });
+
+  // YouTube iframe autoplay on scroll via postMessage
+  function ytCommand(iframe, func) {
+    iframe.contentWindow.postMessage(JSON.stringify({ event: 'command', func, args: [] }), '*');
   }
 
-  // Run on load and again after a short delay to catch late-added videos
-  initVideoObservers();
-  setTimeout(initVideoObservers, 1000);
+  const ytObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const iframe = entry.target;
+      if (entry.isIntersecting) { ytCommand(iframe, 'playVideo'); }
+      else { ytCommand(iframe, 'pauseVideo'); }
+    });
+  }, { threshold: 0.4 });
+
+  document.querySelectorAll('iframe.yt-player').forEach(iframe => ytObserver.observe(iframe));
 </script>
 </body>
 </html>
