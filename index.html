@@ -38,6 +38,7 @@
     line-height: 1.6;
     overflow-x: hidden;
   }
+  * { -webkit-font-smoothing: antialiased; }
 
   /* ─── NAV ─── */
   nav {
@@ -256,7 +257,7 @@
     position: relative;
     background: var(--bg2);
     border: 0.5px solid var(--border-subtle);
-    overflow: hidden;
+    overflow: visible;
     transition: border-color var(--transition), transform var(--transition);
     cursor: pointer;
   }
@@ -509,7 +510,9 @@
     font-size: 2rem;
     font-weight: 300;
     margin-bottom: 1.5rem;
-    line-height: 1.2;
+    line-height: 1.3;
+    padding-bottom: 0.1em;
+    overflow: visible;
   }
   .about-content h3 em { font-style: italic; color: var(--gold-dim); }
   .about-content p {
@@ -590,7 +593,7 @@
   .mute-btn {
     position: absolute;
     bottom: 12px;
-    right: 12px;
+    left: 12px;
     z-index: 10;
     background: rgba(9,9,7,0.7);
     border: 0.5px solid rgba(200,168,75,0.3);
@@ -661,6 +664,30 @@
     transform: translate(-50%, -50%) scale(1);
   }
 
+
+  .fullscreen-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 10;
+    background: rgba(9,9,7,0.7);
+    border: 0.5px solid rgba(200,168,75,0.3);
+    color: var(--gold);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    backdrop-filter: blur(4px);
+  }
+  .fullscreen-btn:hover {
+    background: rgba(200,168,75,0.15);
+    border-color: var(--gold);
+  }
+
   @keyframes fadeUp {
     to { opacity: 1; transform: translateY(0); }
   }
@@ -703,7 +730,6 @@
     .brand-intro { flex-direction: column; align-items: flex-start; }
   }
 </style>
-<script src="https://player.vimeo.com/api/player.js"></script>
 </head>
 <body>
 
@@ -750,6 +776,12 @@
           <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
         </button>
         <div class="video-scrubber"><div class="scrubber-track"><div class="scrubber-fill"></div><div class="scrubber-thumb"></div></div></div>
+        <button class="fullscreen-btn" data-target="vimeo-franktok" aria-label="Fullscreen">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
+            <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+          </svg>
+        </button>
       </div>
       <div class="video-meta">
         <div class="video-title">Franktok</div>
@@ -764,6 +796,12 @@
         <button class="mute-btn" data-target="vimeo-qgmulti" aria-label="Toggle sound">
           <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
           <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
+        <button class="fullscreen-btn" data-target="vimeo-qgmulti" aria-label="Fullscreen">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
+            <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+          </svg>
         </button>
       </div>
       <div class="video-meta">
@@ -781,6 +819,12 @@
           <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
         </button>
         <div class="video-scrubber"><div class="scrubber-track"><div class="scrubber-fill"></div><div class="scrubber-thumb"></div></div></div>
+        <button class="fullscreen-btn" data-target="vimeo-chocolate" aria-label="Fullscreen">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
+            <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+          </svg>
+        </button>
       </div>
       <div class="video-meta">
         <div class="video-title">Chocolate Co.</div>
@@ -797,6 +841,12 @@
           <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
         </button>
         <div class="video-scrubber"><div class="scrubber-track"><div class="scrubber-fill"></div><div class="scrubber-thumb"></div></div></div>
+        <button class="fullscreen-btn" data-target="vimeo-foundfootage" aria-label="Fullscreen">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/>
+            <line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/>
+          </svg>
+        </button>
       </div>
       <div class="video-meta">
         <div class="video-title">Found Footage</div>
@@ -1080,11 +1130,19 @@
 
   document.querySelectorAll('iframe.yt-player').forEach(iframe => ytObserver.observe(iframe));
 
-  // Vimeo mute toggles for editing videos
+  // Load Vimeo SDK dynamically then init everything
   const vimeoPlayers = {};
-  document.querySelectorAll('iframe.vimeo-edit').forEach(iframe => {
-    vimeoPlayers[iframe.id] = new Vimeo.Player(iframe);
-  });
+  const sdkScript = document.createElement('script');
+  sdkScript.src = 'https://player.vimeo.com/api/player.js';
+  sdkScript.onload = () => {
+    document.querySelectorAll('iframe.vimeo-edit').forEach(iframe => {
+      vimeoPlayers[iframe.id] = new Vimeo.Player(iframe);
+    });
+    initVimeoControls();
+  };
+  document.head.appendChild(sdkScript);
+
+  function initVimeoControls() {
 
   document.querySelectorAll('.mute-btn').forEach(btn => {
     let muted = true;
@@ -1135,6 +1193,20 @@
     window.addEventListener('mousemove', e => { if (dragging) seek(e); });
     window.addEventListener('mouseup', () => { dragging = false; });
     track.addEventListener('click', seek);
+  });
+
+
+  } // end initVimeoControls
+
+  // Fullscreen buttons
+  document.querySelectorAll('.fullscreen-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const iframe = document.getElementById(btn.dataset.target);
+      if (!iframe) return;
+      if (iframe.requestFullscreen) iframe.requestFullscreen();
+      else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+      else if (iframe.mozRequestFullScreen) iframe.mozRequestFullScreen();
+    });
   });
 
 </script>
