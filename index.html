@@ -586,6 +586,30 @@
   }
 
   /* ─── ANIMATIONS ─── */
+
+  .mute-btn {
+    position: absolute;
+    bottom: 12px;
+    right: 12px;
+    z-index: 10;
+    background: rgba(9,9,7,0.7);
+    border: 0.5px solid rgba(200,168,75,0.3);
+    color: var(--gold);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    backdrop-filter: blur(4px);
+  }
+  .mute-btn:hover {
+    background: rgba(200,168,75,0.15);
+    border-color: var(--gold);
+  }
+
   @keyframes fadeUp {
     to { opacity: 1; transform: translateY(0); }
   }
@@ -628,6 +652,7 @@
     .brand-intro { flex-direction: column; align-items: flex-start; }
   }
 </style>
+<script src="https://player.vimeo.com/api/player.js"></script>
 </head>
 <body>
 
@@ -668,7 +693,11 @@
     <!-- VIDEO 1 — Replace the .video-placeholder div with: <video src="your-video.mp4" controls poster="your-thumbnail.jpg"></video> -->
     <div class="video-card reveal">
       <div class="video-placeholder">
-        <iframe class="yt-player" src="https://player.vimeo.com/video/1191373722?autoplay=1&muted=1&loop=1&background=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <iframe class="yt-player vimeo-edit" id="vimeo-franktok" src="https://player.vimeo.com/video/1191373722?autoplay=1&muted=1&loop=1&background=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <button class="mute-btn" data-target="vimeo-franktok" aria-label="Toggle sound">
+          <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
       </div>
       <div class="video-meta">
         <div class="video-title">Franktok</div>
@@ -679,7 +708,11 @@
     <!-- VIDEO 2 -->
     <div class="video-card reveal reveal-delay-1">
       <div class="video-placeholder">
-        <iframe class="yt-player" src="https://player.vimeo.com/video/1191350924?autoplay=1&muted=1&loop=1&background=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <iframe class="yt-player vimeo-edit" id="vimeo-qgmulti" src="https://player.vimeo.com/video/1191350924?autoplay=1&muted=1&loop=1&background=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <button class="mute-btn" data-target="vimeo-qgmulti" aria-label="Toggle sound">
+          <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
       </div>
       <div class="video-meta">
         <div class="video-title">Multi Edit</div>
@@ -690,7 +723,11 @@
     <!-- VIDEO 3 -->
     <div class="video-card reveal reveal-delay-2">
       <div class="video-placeholder landscape">
-        <iframe class="yt-player" src="https://player.vimeo.com/video/1191371594?autoplay=1&muted=1&loop=1&background=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <iframe class="yt-player vimeo-edit" id="vimeo-chocolate" src="https://player.vimeo.com/video/1191371594?autoplay=1&muted=1&loop=1&background=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <button class="mute-btn" data-target="vimeo-chocolate" aria-label="Toggle sound">
+          <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
       </div>
       <div class="video-meta">
         <div class="video-title">Chocolate Co.</div>
@@ -701,7 +738,11 @@
     <!-- VIDEO 4 -->
     <div class="video-card reveal reveal-delay-3">
       <div class="video-placeholder landscape">
-        <iframe class="yt-player" src="https://player.vimeo.com/video/1191365951?autoplay=1&muted=1&loop=1&background=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <iframe class="yt-player vimeo-edit" id="vimeo-foundfootage" src="https://player.vimeo.com/video/1191365951?autoplay=1&muted=1&loop=1&background=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <button class="mute-btn" data-target="vimeo-foundfootage" aria-label="Toggle sound">
+          <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+        </button>
       </div>
       <div class="video-meta">
         <div class="video-title">Found Footage</div>
@@ -984,6 +1025,25 @@
   }, { threshold: 0.4 });
 
   document.querySelectorAll('iframe.yt-player').forEach(iframe => ytObserver.observe(iframe));
+
+  // Vimeo mute toggles for editing videos
+  const vimeoPlayers = {};
+  document.querySelectorAll('iframe.vimeo-edit').forEach(iframe => {
+    vimeoPlayers[iframe.id] = new Vimeo.Player(iframe);
+  });
+
+  document.querySelectorAll('.mute-btn').forEach(btn => {
+    let muted = true;
+    btn.addEventListener('click', async () => {
+      const player = vimeoPlayers[btn.dataset.target];
+      if (!player) return;
+      muted = !muted;
+      await player.setMuted(muted);
+      btn.querySelector('.icon-muted').style.display = muted ? '' : 'none';
+      btn.querySelector('.icon-unmuted').style.display = muted ? 'none' : '';
+    });
+  });
+
 </script>
 </body>
 </html>
