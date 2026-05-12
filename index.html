@@ -610,6 +610,57 @@
     border-color: var(--gold);
   }
 
+
+  .video-scrubber {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 0 0 6px;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+  }
+  .video-placeholder:hover .video-scrubber {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .scrubber-track {
+    width: calc(100% - 24px);
+    margin: 0 12px;
+    height: 3px;
+    background: rgba(255,255,255,0.15);
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+  }
+  .scrubber-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    width: 0%;
+    transition: width 0.25s linear;
+    pointer-events: none;
+  }
+  .scrubber-track:hover .scrubber-fill {
+    background: var(--gold-bright);
+  }
+  .scrubber-thumb {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--gold-bright);
+    transition: transform 0.15s ease, left 0.25s linear;
+    pointer-events: none;
+  }
+  .scrubber-track:hover .scrubber-thumb {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
   @keyframes fadeUp {
     to { opacity: 1; transform: translateY(0); }
   }
@@ -698,6 +749,7 @@
           <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
           <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
         </button>
+        <div class="video-scrubber"><div class="scrubber-track"><div class="scrubber-fill"></div><div class="scrubber-thumb"></div></div></div>
       </div>
       <div class="video-meta">
         <div class="video-title">Franktok</div>
@@ -728,6 +780,7 @@
           <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
           <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
         </button>
+        <div class="video-scrubber"><div class="scrubber-track"><div class="scrubber-fill"></div><div class="scrubber-thumb"></div></div></div>
       </div>
       <div class="video-meta">
         <div class="video-title">Chocolate Co.</div>
@@ -743,6 +796,7 @@
           <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
           <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
         </button>
+        <div class="video-scrubber"><div class="scrubber-track"><div class="scrubber-fill"></div><div class="scrubber-thumb"></div></div></div>
       </div>
       <div class="video-meta">
         <div class="video-title">Found Footage</div>
@@ -1042,6 +1096,45 @@
       btn.querySelector('.icon-muted').style.display = muted ? '' : 'none';
       btn.querySelector('.icon-unmuted').style.display = muted ? 'none' : '';
     });
+  });
+
+
+  // Progress scrubbers for Franktok, Chocolate, Found Footage
+  const scrubberIds = ['vimeo-franktok', 'vimeo-chocolate', 'vimeo-foundfootage'];
+
+  scrubberIds.forEach(id => {
+    const player = vimeoPlayers[id];
+    if (!player) return;
+
+    const iframe = document.getElementById(id);
+    const placeholder = iframe.closest('.video-placeholder');
+    const track = placeholder.querySelector('.scrubber-track');
+    const fill = placeholder.querySelector('.scrubber-fill');
+    const thumb = placeholder.querySelector('.scrubber-thumb');
+    if (!track) return;
+
+    // Update bar as video plays
+    player.on('timeupdate', ({ seconds, duration }) => {
+      const pct = duration ? (seconds / duration) * 100 : 0;
+      fill.style.width = pct + '%';
+      thumb.style.left = pct + '%';
+    });
+
+    // Scrub on click or drag
+    let dragging = false;
+
+    function seek(e) {
+      const rect = track.getBoundingClientRect();
+      const pct = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
+      fill.style.width = (pct * 100) + '%';
+      thumb.style.left = (pct * 100) + '%';
+      player.getDuration().then(dur => player.setCurrentTime(pct * dur));
+    }
+
+    track.addEventListener('mousedown', e => { dragging = true; seek(e); });
+    window.addEventListener('mousemove', e => { if (dragging) seek(e); });
+    window.addEventListener('mouseup', () => { dragging = false; });
+    track.addEventListener('click', seek);
   });
 
 </script>
