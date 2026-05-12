@@ -6,7 +6,7 @@
 <title>Austin Moseley — Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Plus+Jakarta+Sans:wght@400;500;700;800&family=Syne:wght@400;500;700;800&display=swap" rel="stylesheet">
 
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -546,10 +546,10 @@
   #contact .section-label { justify-content: center; }
   #contact .section-label::after { display: none; }
   .contact-email {
-    font-family: var(--serif);
+    font-family: 'Syne', sans-serif;
     font-size: clamp(2rem, 5vw, 5rem);
-    font-weight: 300;
-    font-style: italic;
+    font-weight: 700;
+    font-style: normal;
     color: var(--text);
     text-decoration: none;
     display: inline-block;
@@ -1227,16 +1227,21 @@
 
   } // end initVimeoControls
 
-  // Fullscreen buttons — go fullscreen on the wrapper so overlay buttons stay visible
+  // Fullscreen buttons — toggle enter/exit fullscreen
   document.querySelectorAll('.fullscreen-btn').forEach(btn => {
     btn.addEventListener('click', () => {
-      const iframe = document.getElementById(btn.dataset.target);
-      if (!iframe) return;
-      const wrapper = iframe.closest('.video-placeholder');
-      const el = wrapper || iframe;
-      if (el.requestFullscreen) el.requestFullscreen();
-      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-      else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      } else {
+        const iframe = document.getElementById(btn.dataset.target);
+        if (!iframe) return;
+        const wrapper = iframe.closest('.video-placeholder');
+        const el = wrapper || iframe;
+        if (el.requestFullscreen) el.requestFullscreen();
+        else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+        else if (el.mozRequestFullScreen) el.mozRequestFullScreen();
+      }
     });
   });
 
