@@ -485,6 +485,7 @@
     display: flex;
     align-items: flex-end;
     padding: 0.8rem;
+    pointer-events: none;
   }
   .logo-cell:hover .logo-cell-hover { opacity: 1; }
   .logo-cell-label {
@@ -1323,7 +1324,7 @@
   const lightboxImg = document.getElementById('lightbox-img');
 
   document.querySelectorAll('.ad-image img, .logo-cell img').forEach(img => {
-    img.style.cursor = 'zoom-in';
+
     img.addEventListener('click', e => {
       e.stopPropagation();
       lightboxImg.src = img.src;
