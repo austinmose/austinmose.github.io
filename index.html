@@ -13,8 +13,8 @@
 
   :root {
     --bg: #090907;
-    --bg2: #111110;
-    --bg3: #1a1a17;
+    --bg2: #090907;
+    --bg3: #141412;
     --gold: #c8a84b;
     --gold-dim: #8a7030;
     --gold-bright: #e2c46a;
@@ -93,7 +93,20 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 65% 55% at 72% 38%, rgba(200,168,75,0.26) 0%, transparent 65%);
+      radial-gradient(ellipse 40% 30% at 74% 32%, rgba(226,196,106,0.18) 0%, transparent 45%),
+      radial-gradient(ellipse 65% 55% at 70% 40%, rgba(200,168,75,0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 20% at 65% 50%, rgba(200,168,75,0.08) 0%, transparent 50%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 220px;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+    pointer-events: none;
+    z-index: 1;
   }
   .hero-grain {
     position: absolute;
@@ -103,6 +116,7 @@
     pointer-events: none;
     opacity: 0.6;
   }
+  .hero > *:not(.hero-bg):not(.hero-grain):not(.hero::after) { position: relative; z-index: 2; }
   .hero-eyebrow {
     font-size: 0.72rem;
     font-weight: 500;
