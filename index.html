@@ -93,7 +93,19 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 65% 55% at 72% 38%, rgba(200,168,75,0.26) 0%, transparent 65%);
+      radial-gradient(ellipse 40% 30% at 74% 32%, rgba(226,196,106,0.18) 0%, transparent 45%),
+      radial-gradient(ellipse 65% 55% at 70% 40%, rgba(200,168,75,0.22) 0%, transparent 60%),
+      radial-gradient(ellipse 30% 20% at 65% 50%, rgba(200,168,75,0.08) 0%, transparent 50%),
+      radial-gradient(ellipse 20% 15% at 80% 28%, rgba(240,220,140,0.1) 0%, transparent 40%);
+  }
+  .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='t'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23t)' opacity='0.06'/%3E%3C/svg%3E");
+    background-size: 256px;
+    mix-blend-mode: overlay;
+    pointer-events: none;
   }
   .hero-grain {
     position: absolute;
@@ -850,7 +862,7 @@
     <!-- VIDEO 3 -->
     <div class="video-card reveal reveal-delay-2">
       <div class="video-placeholder landscape">
-        <iframe class="yt-player vimeo-edit" id="vimeo-chocolate" src="https://player.vimeo.com/video/1191371594?autoplay=1&muted=1&loop=1&background=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <iframe class="yt-player vimeo-edit" id="vimeo-chocolate" src="https://player.vimeo.com/video/1191766397?autoplay=1&muted=1&loop=1&background=1" style="position:absolute;inset:0;width:100%;height:100%;border:none;" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
         <button class="mute-btn" data-target="vimeo-chocolate" aria-label="Toggle sound">
           <svg class="icon-muted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
           <svg class="icon-unmuted" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
@@ -982,7 +994,7 @@
     <!-- AD 3 -->
     <div class="ad-card reveal reveal-delay-2">
       <div class="ad-image">
-        <img src="SistersAd3Newest2026.png" alt="Sisters Coffee Co." style="object-fit:contain;width:96%;height:96%;">
+        <img src="SistersAd3Newest2026.png" alt="Sisters Coffee Co." style="object-fit:contain;width:100%;height:100%;transform:scale(1.12);transform-origin:center;">
       </div>
       <div class="ad-meta">
         <div class="ad-client">Sisters Coffee Co.</div>
@@ -1084,7 +1096,7 @@
         <li>Motion Graphics</li>
         <li>Brand Identity</li>
         <li>Print Design</li>
-        <li>Social Media Editing</li>
+        <li>TikTok Editing</li>
         <li>Advertising</li>
       </ul>
     </div>
