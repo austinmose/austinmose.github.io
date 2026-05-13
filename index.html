@@ -746,6 +746,37 @@
     pointer-events: all;
   }
 
+
+  /* ─── LIGHTBOX ─── */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 999;
+    background: rgba(9,9,7,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(8px);
+    cursor: zoom-out;
+  }
+  .lightbox.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .lightbox img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    transform: scale(0.94);
+    transition: transform 0.3s ease;
+  }
+  .lightbox.open img {
+    transform: scale(1);
+  }
+
   @keyframes fadeUp {
     to { opacity: 1; transform: translateY(0); }
   }
@@ -1137,6 +1168,9 @@
   <span>Video Editor · Designer · Colorist</span>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox"><img id="lightbox-img" src="" alt=""></div>
+
 <!-- ══════════════════════ SCRIPTS ══════════════════════ -->
 <script>
   // Nav scroll effect
@@ -1280,6 +1314,34 @@
       el.querySelectorAll('.mute-btn, .fullscreen-btn, .video-scrubber').forEach(b => {
         b.style.zIndex = '2147483647';
       });
+    }
+  });
+
+
+  // Lightbox for ads and ERC cells
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  document.querySelectorAll('.ad-image img, .logo-cell img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', e => {
+      e.stopPropagation();
+      lightboxImg.src = img.src;
+      lightboxImg.alt = img.alt;
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+
+  lightbox.addEventListener('click', () => {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
     }
   });
 
